@@ -2,6 +2,7 @@ FROM node:latest
 
 MAINTAINER https://www.saritasa.com
 
+# global npm libriries
 RUN npm install -g grunt \
   && npm install -g swagger-cli \
   && npm install -g http-server \
@@ -22,6 +23,7 @@ ADD swagger-ui/ /home/www/
 WORKDIR /home/grunt/
 
 EXPOSE 8080
+# port for livereload server
 EXPOSE 8081
 
 ENTRYPOINT bash start.sh
