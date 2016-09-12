@@ -2,16 +2,15 @@ FROM node:latest
 
 MAINTAINER https://www.saritasa.com
 
-# global npm libriries
+WORKDIR /home/
+COPY config/Gruntfile.js /home/
+
+# install npm dependencies
 RUN npm install -g grunt \
   && npm install -g swagger-cli \
   && npm install -g http-server \
-  && npm install -g yamljs 
-
-ADD config/ /home/grunt/
-
-# install local npm libraries
-RUN npm install grunt \
+  && npm install -g yamljs \ 
+  && npm install grunt \
   && npm install grunt-contrib-watch \
   && npm install grunt-exec \
   && npm install load-grunt-tasks \
@@ -20,11 +19,11 @@ RUN npm install grunt \
   && npm install jit-grunt
 
 ADD swagger-ui/ /home/www/
-WORKDIR /home/grunt/
+COPY config/* /home/
 
 EXPOSE 8080
 # port for livereload server
 EXPOSE 8081
 
-ENTRYPOINT bash start.sh
+CMD bash start.sh
 
