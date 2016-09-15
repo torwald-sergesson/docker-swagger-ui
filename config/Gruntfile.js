@@ -16,7 +16,7 @@ module.exports = function(grunt) {
       swagger: {
         //
         files: '/src/swagger/**/*.yaml',
-        tasks: ['shell:swagger:build'],
+        tasks: ['shell:swagger_build'],
 		options: {
 			livereload: 8081
 		}
@@ -24,27 +24,26 @@ module.exports = function(grunt) {
     },
     shell: {
       // generate swagger file
-      swagger: {
-        command: function(command) {
-          if (command === 'build') {
-            return 'bash ./mk_swagger.sh';
-          } else if (command === 'validate') {
-            return 'swagger validate /src/swagger/main.yaml';
-          }
+      // generate swagger file
+      swagger_build: {
+        command: function () {
+          return 'bash ./mk_swagger.sh';
+        }
+      },
+      // validation of swagger file
+      swagger_validate:  {
+        command: function () {
+          return 'swagger validate /src/swagger/main.yaml';
         }
       }
-    },
-    // multi task for swagger
-    swagger: {
-      validate: 'validate',
-      build: 'build'
-    },
+    }
   });
 
-  grunt.registerMultiTask('swagger', 'Swagger operations', function() {
-    grunt.
-    task.
-    run('shell:swagger:' + this.data);
-  });
+  grunt.registerTask('swagger', 'Swagger default', [
+    'shell:swagger_validate',
+    'shell:swagger_build'
+  ]);
+  grunt.registerTask('swagger_validate', ['shell:swagger_validate']);
+  grunt.registerTask('swagger_build', ['shell:swagger_build']);
 };
 
