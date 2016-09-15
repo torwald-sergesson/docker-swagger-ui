@@ -3,7 +3,6 @@ FROM node:latest
 MAINTAINER https://www.saritasa.com
 
 WORKDIR /home/
-COPY config/Gruntfile.js /home/
 
 # install npm dependencies
 RUN npm install -g grunt \
