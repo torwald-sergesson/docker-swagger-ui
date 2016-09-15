@@ -3304,6 +3304,7 @@ ApiKeyAuthorization.prototype.apply = function (obj) {
       obj.headers[this.name] = this.value;
     }
 
+    cookieOper.setCookie('APIKey', this.value);
     return true;
   }
 };
