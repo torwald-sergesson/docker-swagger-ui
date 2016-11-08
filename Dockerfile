@@ -18,6 +18,8 @@ RUN npm install -g grunt \
   && npm install jit-grunt
 
 ADD swagger-ui/ /home/www/
+# create folder for swagger files
+RUN mkdir /home/www/swaggers
 COPY config/* /home/
 
 EXPOSE 8080
